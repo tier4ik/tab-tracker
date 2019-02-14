@@ -5,6 +5,7 @@ import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
 import { sync } from 'vuex-router-sync'
 import Store from './store/store'
+import 'vuetify/dist/vuetify.css'
 
 Vue.config.productionTip = false
 

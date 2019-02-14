@@ -1,33 +1,27 @@
 <template>
-  <v-layout justify-center align-center>
-    <v-flex xs12 lg8>
-      <div class="white elevation-2">
-        <v-toolbar flat dense class="cyan" dark>
-          <v-toolbar-title>Log In</v-toolbar-title>
-        </v-toolbar>
-        <form class="login__form">
-          <v-text-field
-            type="email" 
-            name="email" 
-            placeholder="email" 
-            v-model.trim="email"
-            autofocus>
-          </v-text-field>
-          <v-text-field 
-            type="password" 
-            name="password" 
-            placeholder="password" 
-            v-model.trim="password">
-          </v-text-field>
-          <div v-if="error" v-html="error" class="error"></div>
-          <v-btn class="cyan" dark @click="login">Log In</v-btn>
-        </form>
-      </div>
-    </v-flex>
-  </v-layout>
+  <tab-panel title="Login">
+    <form class="login__form">
+      <v-text-field
+        type="email" 
+        name="email" 
+        placeholder="email" 
+        v-model.trim="email"
+        autofocus>
+      </v-text-field>
+      <v-text-field 
+        type="password" 
+        name="password" 
+        placeholder="password" 
+        v-model.trim="password">
+      </v-text-field>
+      <div v-if="error" v-html="error" class="error"></div>
+      <v-btn class="cyan" dark @click="login">Log In</v-btn>
+    </form>
+  </tab-panel>
 </template>
 
 <script>
+import Panel from './Panel.vue'
 import authenticationService from './../services/authenticationService'
 import Header from './Header.vue'
 export default {
@@ -39,7 +33,8 @@ export default {
     }
   },
   components: {
-    "tab-header": Header
+    "tab-header": Header,
+    "tab-panel": Panel
   },
   methods: {
     async login() {
@@ -60,7 +55,6 @@ export default {
 </script>
 
 <style scoped lang="sass">
-  @import '~vuetify/dist/vuetify.css'
   .login
     &__form
       display: flex
