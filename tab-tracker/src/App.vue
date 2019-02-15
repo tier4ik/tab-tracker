@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <v-content>
-        <v-container fill-height>
+        <v-container fill-height fluid>
           <tab-header></tab-header>
           <router-view></router-view>
         </v-container>

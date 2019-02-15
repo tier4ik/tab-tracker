@@ -6,11 +6,13 @@ import Vuelidate from 'vuelidate'
 import { sync } from 'vuex-router-sync'
 import Store from './store/store'
 import 'vuetify/dist/vuetify.css'
-
-Vue.config.productionTip = false
+import VueYoutubeEmbed from 'vue-youtube-embed'
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
+Vue.use(VueYoutubeEmbed, { global: true, componentId: 'youtube-media' })
+
+Vue.config.productionTip = false
 
 sync(Store, Router)
 
