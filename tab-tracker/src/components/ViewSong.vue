@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container fluid class="mt-4">
         <v-layout row wrap>
             <v-flex xs12>
                 <tab-panel title="Video" class="text-xs-center">

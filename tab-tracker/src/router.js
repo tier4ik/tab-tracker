@@ -16,11 +16,6 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: App
-    },
-    {
       path: '/register',
       name: 'register',
       component: Register
@@ -49,6 +44,10 @@ export default new Router({
       path: '/song/:songId',
       name: 'song',
       component: ViewSong
+    },
+    {
+      path: '*',
+      redirect: 'songs'
     }
   ]
 })

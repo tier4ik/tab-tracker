@@ -1,30 +1,32 @@
 <template>
-  <tab-panel title="Register">
-    <form class="register__form">
-      <v-text-field
-        type="email" 
-        name="email" 
-        placeholder="email" 
-        v-model.trim="$v.email.$model"
-        autofocus
-        autocomplete="off">
-      </v-text-field>
-      <div class="register__error" v-if="!$v.email.required">
-        Email field is required
-      </div>
-      <v-text-field 
-        type="password" 
-        name="password" 
-        placeholder="password" 
-        v-model.trim="$v.password.$model">
-      </v-text-field>
-      <div class="register__error" v-if="!$v.password.minLength || !$v.password.maxLength">
-        Password length must be more than {{$v.password.$params.minLength.min}} and less than {{$v.password.$params.maxLength.max}}
-      </div>
-      <div v-if="error" v-html="error" class="error"></div>
-      <v-btn class="cyan" dark @click="register">Register</v-btn>
-    </form>
-  </tab-panel>
+  <v-container>
+    <tab-panel title="Register">
+      <form class="register__form">
+        <v-text-field
+          type="email" 
+          name="email" 
+          placeholder="email" 
+          v-model.trim="$v.email.$model"
+          autofocus
+          autocomplete="off">
+        </v-text-field>
+        <div class="register__error" v-if="!$v.email.required">
+          Email field is required
+        </div>
+        <v-text-field 
+          type="password" 
+          name="password" 
+          placeholder="password" 
+          v-model.trim="$v.password.$model">
+        </v-text-field>
+        <div class="register__error" v-if="!$v.password.minLength || !$v.password.maxLength">
+          Password length must be more than {{$v.password.$params.minLength.min}} and less than {{$v.password.$params.maxLength.max}}
+        </div>
+        <div v-if="error" v-html="error" class="error"></div>
+        <v-btn class="cyan" dark @click="register">Register</v-btn>
+      </form>
+    </tab-panel>
+  </v-container>
 </template>
 
 <script>
@@ -63,6 +65,9 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        this.$router.push({
+          name: 'songs'
+        })
       }catch(e){
         // error которую возвращает axios
         this.error = e.response.data

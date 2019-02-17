@@ -1,28 +1,31 @@
 <template>
-    <tab-panel title="Songs" class="mt-4">
-        <v-btn fab light small slot="controls" absolute right middle :to="{name: 'songs-create'}">
-            <v-icon>add</v-icon>
-        </v-btn>
-        <v-layout v-for="song in songs" :key="song._id" class="song mb-4">
-            <v-flex xs6 align-self-center>
-                <div class="song__title" >Title: {{song.title}}</div>
-                <div class="song__artist">Artist: {{song.artist}}</div>
-                <div class="song__album">Album: {{song.album}}</div>
-                <div class="song__genre">Genre: {{song.genre}}</div>
-                <v-btn class="mt-4 cyan" dark :to="{ name: 'song', params: { songId: song._id }}">
-                    Detail
-                </v-btn>
-            </v-flex> 
-            <v-flex xs6 class="text-xs-center">
-                <img class="album__image" :src="song.albumImageUrl" alt="album image">
-            </v-flex> 
-         </v-layout>   
-        
-    </tab-panel>
+    <v-container class="mt-4">
+        <search-panel></search-panel>
+        <tab-panel title="Songs">
+            <v-btn fab light small slot="controls" absolute right middle :to="{name: 'songs-create'}">
+                <v-icon>add</v-icon>
+            </v-btn>
+            <v-layout v-for="song in songs" :key="song._id" class="song mb-4">
+                <v-flex xs6 align-self-center>
+                    <div class="song__title" >Title: {{song.title}}</div>
+                    <div class="song__artist">Artist: {{song.artist}}</div>
+                    <div class="song__album">Album: {{song.album}}</div>
+                    <div class="song__genre">Genre: {{song.genre}}</div>
+                    <v-btn class="mt-4 cyan" dark :to="{ name: 'song', params: { songId: song._id }}">
+                        Detail
+                    </v-btn>
+                </v-flex> 
+                <v-flex xs6 class="text-xs-center">
+                    <img class="album__image" :src="song.albumImageUrl" alt="album image">
+                </v-flex> 
+            </v-layout>   
+        </tab-panel>
+    </v-container>
 </template>
 
 <script>
 import Panel from './Panel.vue'
+import SongSearchPanel from './SongSearchPanel'
 import songService from './../services/songService'
 export default {
     data() {
@@ -31,11 +34,18 @@ export default {
         }
     },
     components: {
-        'tab-panel': Panel
+        'tab-panel': Panel,
+        'search-panel': SongSearchPanel
     },
-    async mounted() {
-        let songs = await songService.loadSongs();
-        this.songs = songs.data;
+    watch: {
+        '$route.query.search': {
+            immediate: true,
+            async handler(val) {
+                let songs = await songService.loadSongs(val);
+                console.log(songs.data);
+                this.songs = songs.data;
+            }
+        }
     }
 }
 </script>

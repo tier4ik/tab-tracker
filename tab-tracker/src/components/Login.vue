@@ -1,23 +1,25 @@
 <template>
-  <tab-panel title="Login">
-    <form class="login__form">
-      <v-text-field
-        type="email" 
-        name="email" 
-        placeholder="email" 
-        v-model.trim="email"
-        autofocus>
-      </v-text-field>
-      <v-text-field 
-        type="password" 
-        name="password" 
-        placeholder="password" 
-        v-model.trim="password">
-      </v-text-field>
-      <div v-if="error" v-html="error" class="error"></div>
-      <v-btn class="cyan" dark @click="login">Log In</v-btn>
-    </form>
-  </tab-panel>
+  <v-container>
+    <tab-panel title="Login">
+      <form class="login__form">
+        <v-text-field
+          type="email" 
+          name="email" 
+          placeholder="email" 
+          v-model.trim="email"
+          autofocus>
+        </v-text-field>
+        <v-text-field 
+          type="password" 
+          name="password" 
+          placeholder="password" 
+          v-model.trim="password">
+        </v-text-field>
+        <div v-if="error" v-html="error" class="error"></div>
+        <v-btn class="cyan" dark @click="login">Log In</v-btn>
+      </form>
+    </tab-panel>
+  </v-container>
 </template>
 
 <script>
@@ -45,6 +47,9 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        this.$router.push({
+          name: 'songs'
+        })
       }catch(e){
         // error которую возвращает axios
         this.error = e.response.data
